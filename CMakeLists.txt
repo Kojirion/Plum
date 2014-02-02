@@ -5,10 +5,14 @@ include_directories(${CMAKE_SOURCE_DIR})
 
 set(Plumpp_HDRS
         Matrix.hpp
+        Node.hpp
+        Element.hpp
 )
 
 set(Plumpp_SRCS
         Matrix.cpp
+        Node.cpp
+        Element.cpp
 )
 
 add_library(core ${Plumpp_HDRS} ${Plumpp_SRCS})
