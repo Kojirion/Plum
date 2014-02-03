@@ -27,24 +27,25 @@ BOOST_AUTO_TEST_CASE(Factor)
     Matrix product = matrix_1 * matrix_2;
     BOOST_CHECK(product(0,1)==4);
 
-    std::cout << product << std::endl;
-
 }
 
 BOOST_AUTO_TEST_CASE(Element_tests)
 {
-    Node node_1;
-    Node node_2;
+    Node node_1{0., 0.};
+    Node node_2{0., 3.};
 
     Element element(node_1, node_2, 2E8, 0.01, 3E-4);
 
     Matrix matrix = {
-        {0.2667E+05,  0.0000E+00, -0.4000E+05, -0.2667E+05, -0.0000E+00},
-        {0.0000E+00,  0.6667E+06,  0.0000E+00, -0.0000E+00, -0.6667E+06},
-        {-0.4000E+05,  0.0000E+00,  0.8000E+05,  0.4000E+05, -0.0000E+00},
-        {-0.2667E+05, -0.0000E+00,  0.4000E+05,  0.2667E+05,  0.0000E+00},
-        {-0.0000E+00, -0.6667E+06, -0.0000E+00,  0.0000E+00,  0.6667E+06},
+        {0.2667E+05, 0.0000E+00, -0.4000E+05, -0.2667E+05, -0.0000E+00, -0.4000E+05},
+        {0.0000E+00, 0.6667E+06, 0.0000E+00, -0.0000E+00, -0.6667E+06, 0.0000E+00},
+        {-0.4000E+05, 0.0000E+00, 0.8000E+05, 0.4000E+05, -0.0000E+00, 0.4000E+05},
+        {-0.2667E+05, -0.0000E+00, 0.4000E+05, 0.2667E+05, 0.0000E+00, 0.4000E+05},
+        {-0.0000E+00, -0.6667E+06, -0.0000E+00, 0.0000E+00, 0.6667E+06, -0.0000E+00},
     };
 
+    std::cout << element.getStiffnessMatrix() << std::endl << matrix << std::endl;
+
     BOOST_CHECK(element.getStiffnessMatrix() == matrix);
+
 }

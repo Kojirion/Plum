@@ -1,10 +1,9 @@
 #ifndef NODE_HPP
 #define NODE_HPP
 
-class Node
+struct Node
 {
-public:
-    Node();
+    double x, y;
 };
 
 #endif // NODE_HPP
