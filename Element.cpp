@@ -54,6 +54,12 @@ Matrix Element::getStiffnessMatrix() const
     est(4, 5) = -c * seil2;
     est(5, 5) = 4.e0 * youngsModulus * area_2 / al;
 
+    for (int i=1; i<6; ++i){
+        for (int j=0; j<i; ++j){
+            est(i, j) = est(j, i);
+        }
+    }
+
     return est;
 
 }
