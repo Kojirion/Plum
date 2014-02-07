@@ -1,21 +1,27 @@
 project(Plumpp)
 cmake_minimum_required(VERSION 2.8)
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -g")
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -gdwarf-3")
 include_directories(${CMAKE_SOURCE_DIR})
 
 set(Plumpp_HDRS
         Matrix.hpp
         Node.hpp
         Element.hpp
+        Mesh.hpp
 )
 
 set(Plumpp_SRCS
         Matrix.cpp
         Node.cpp
         Element.cpp
+        Mesh.cpp
 )
 
 add_library(core ${Plumpp_HDRS} ${Plumpp_SRCS})
+
+add_executable(${PROJECT_NAME} main.cpp)
+target_link_libraries(${PROJECT_NAME} core)
+target_link_libraries(${PROJECT_NAME} /usr/local/lib/libboost_program_options.so)
 
 set(test_SRCS
     tests/main.cpp

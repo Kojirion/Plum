@@ -4,6 +4,8 @@
 #include <Matrix.hpp>
 #include <Node.hpp>
 #include <Element.hpp>
+#include <Mesh.hpp>
+#include <iostream>
 
 BOOST_AUTO_TEST_CASE(Matrix_Tests)
 {
@@ -49,4 +51,32 @@ BOOST_AUTO_TEST_CASE(Element_tests)
 
     BOOST_CHECK(element.getStiffnessMatrix() == matrix);
 
+}
+
+
+BOOST_AUTO_TEST_CASE(Mesh_tests)
+{
+    Mesh mesh;
+
+    mesh.addNode({0., 0.});
+    mesh.addNode({0., 3.});
+    mesh.addNode({2., 3.});
+    mesh.addNode({4., 3.});
+    mesh.addNode({4., 0.});
+
+    mesh.addElement(0, 1, Element::Type::Frame);
+    mesh.addElement(1, 2, Element::Type::Frame);
+    mesh.addElement(2, 3, Element::Type::Frame);
+    mesh.addElement(3, 4, Element::Type::Frame);
+
+    auto matrix = mesh.getStiffnessMatrix();
+
+    std::cout << matrix << std::endl;
+}
+
+BOOST_AUTO_TEST_CASE(Ptree_tests)
+{
+    Mesh mesh;
+
+    mesh.load("example.info");
 }

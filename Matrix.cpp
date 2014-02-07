@@ -20,12 +20,14 @@ Matrix::Matrix(std::initializer_list<std::initializer_list<double> > rows)
 
 double Matrix::operator()(unsigned int row, unsigned int column) const
 {
-    return cells[row*nr_columns+column];
+    //return cells[row*nr_columns+column];
+    return cells.at(row*nr_columns+column);
 }
 
 double &Matrix::operator()(unsigned int row, unsigned int column)
 {
-    return cells[row*nr_columns+column];
+    //return cells[row*nr_columns+column];
+    return cells.at(row*nr_columns+column);
 }
 
 Matrix Matrix::operator*(const Matrix &rhs) const
