@@ -3,6 +3,8 @@
 #include <vector>
 #include <ostream>
 
+class Vector;
+
 class Matrix
 {
 public:
@@ -24,5 +26,7 @@ private:
 };
 
 std::ostream& operator<<(std::ostream& os, const Matrix& matrix);
+
+Vector gauss(const Matrix& matrix, const Vector& b);
 
 #endif // MATRIX_HPP

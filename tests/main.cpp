@@ -6,6 +6,7 @@
 #include <Element.hpp>
 #include <Mesh.hpp>
 #include <iostream>
+#include <Vector.hpp>
 
 BOOST_AUTO_TEST_CASE(Matrix_Tests)
 {
@@ -28,6 +29,8 @@ BOOST_AUTO_TEST_CASE(Factor)
 
     Matrix product = matrix_1 * matrix_2;
     BOOST_CHECK(product(0,1)==4);
+
+    std::cout << matrix_1 << std::endl << matrix_2 << std::endl << product;
 
 }
 
@@ -79,4 +82,21 @@ BOOST_AUTO_TEST_CASE(Ptree_tests)
     Mesh mesh;
 
     mesh.load("example.info");
+}
+
+BOOST_AUTO_TEST_CASE(Gauss_tests)
+{
+    Matrix matrix = {
+        {9, 3, 4},
+        {4, 3, 4},
+        {1, 1, 1}
+    };
+
+    Vector vector = {7, 8, 3};
+
+    auto result = gauss(matrix, vector);
+
+    std::cout << result << std::endl;
+
+    BOOST_CHECK(result == Vector({-0.2, 4., -0.8}));
 }

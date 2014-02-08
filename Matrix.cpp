@@ -1,5 +1,7 @@
 #include "Matrix.hpp"
 #include <cassert>
+#include "Vector.hpp"
+#include <iostream>
 
 Matrix::Matrix(unsigned int rows, unsigned int columns):
     cells(rows*columns, 0.),
@@ -75,4 +77,53 @@ std::ostream &operator<<(std::ostream &os, const Matrix &matrix)
         os << ")" << std::endl;
     }
     return os;
+}
+
+
+Vector gauss(const Matrix &matrix, const Vector &b)
+{
+    Matrix A(matrix);
+
+    std::cout << A << std::endl;
+
+    Vector x(b);
+    unsigned int colCount = A.getNrRows();
+    int n = colCount;
+
+    for (int k=1; k <= n - 1; ++k) {
+        for (int i=k + 1; i<=n; ++i) {
+            double c = A(i-1, k-1) / A (k-1, k-1);
+            for (int j = k; j<=n; ++j) {
+                A(i-1, j-1) = A(i-1, j-1) - c * A(k-1, j-1);
+            }
+            x[i-1] = x[i-1] - c * x[k-1];
+        }
+    }
+
+    assert(colCount == x.size());
+
+    //forward elimination
+//    for (unsigned int k=0; k<colCount-1; ++k){
+//        for (unsigned int i=k+1; i<colCount; ++i){
+//            double c = A(k, i) / A(k, k);
+//            for (unsigned int j=i; j<colCount; ++j){
+//                A(i, j) -= c * A(k, j);
+//            }
+//            x[i] -= c * x[k];
+//            std::cout << A << std::endl;
+//        }
+//    }
+
+//    back substitution
+//        x[colCount-1] /= A(A.getNrRows()-1, A.getNrColumns()-1);
+//        for (unsigned int i = colCount-1; i != 1; --i){
+//            for (unsigned int j = i+1; j<colCount; ++j){
+//                x[i] -= A(i, j) * x[j];
+//            }
+//            x[i] /= A(i, i);
+//        }
+
+    std::cout << A << std::endl;
+
+    return x;
 }

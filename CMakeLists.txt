@@ -8,6 +8,7 @@ set(Plumpp_HDRS
         Node.hpp
         Element.hpp
         Mesh.hpp
+        Vector.hpp
 )
 
 set(Plumpp_SRCS
@@ -15,6 +16,7 @@ set(Plumpp_SRCS
         Node.cpp
         Element.cpp
         Mesh.cpp
+        Vector.cpp
 )
 
 add_library(core ${Plumpp_HDRS} ${Plumpp_SRCS})
