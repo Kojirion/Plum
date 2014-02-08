@@ -28,7 +28,7 @@ int main(int ac, char* av[])
         std::cout << "Compression level was not set.\n";
     }
 
-    //also usage, -o to specify output, or echo it to the screen
+    //also usage, -o to specify output
 
     return 0;
 }

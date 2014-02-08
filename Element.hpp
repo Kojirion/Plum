@@ -1,9 +1,8 @@
 #ifndef ELEMENT_HPP
 #define ELEMENT_HPP
-//#include "Node.hpp"
+#include "Matrix.hpp"
 
 class Node;
-class Matrix;
 
 class Element{
 public:

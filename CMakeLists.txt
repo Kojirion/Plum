@@ -12,11 +12,9 @@ set(Plumpp_HDRS
 )
 
 set(Plumpp_SRCS
-        Matrix.cpp
         Node.cpp
         Element.cpp
         Mesh.cpp
-        Vector.cpp
 )
 
 add_library(core ${Plumpp_HDRS} ${Plumpp_SRCS})
@@ -32,3 +30,4 @@ add_executable(test ${test_SRCS})
 #target_link_libraries(test ${BOOST_UNIT_TEST_FRAMEWORK_LIBRARIES})
 target_link_libraries(test core)
 target_link_libraries(test /usr/local/lib/libboost_unit_test_framework.so)
+target_link_libraries(test /usr/lib/libarmadillo.so)
