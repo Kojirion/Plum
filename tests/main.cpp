@@ -10,7 +10,7 @@
 
 BOOST_AUTO_TEST_CASE(Matrix_Tests)
 {
-    Matrix matrix(2,3);
+    Matrix matrix(2,3, arma::fill::zeros);
 
     BOOST_CHECK(matrix(1,1)==0);
 }
@@ -30,7 +30,7 @@ BOOST_AUTO_TEST_CASE(Factor)
     Matrix product = matrix_1 * matrix_2;
     BOOST_CHECK(product(0,1)==4);
 
-    std::cout << matrix_1 << std::endl << matrix_2 << std::endl << product;
+    //std::cout << matrix_1 << std::endl << matrix_2 << std::endl << product;
 
 }
 
@@ -43,16 +43,16 @@ BOOST_AUTO_TEST_CASE(Element_tests)
 
     Matrix matrix;
 
-    std::initializer_list<std::initializer_list<double>> matrix_lists = {
-    {0.2667E+05, 0.0000E+00, -0.4000E+05, -0.2667E+05, -0.0000E+00, -0.4000E+05},
-    {0.0000E+00, 0.6667E+06, 0.0000E+00, -0.0000E+00, -0.6667E+06, 0.0000E+00},
-    {-0.4000E+05, 0.0000E+00, 0.8000E+05, 0.4000E+05, -0.0000E+00, 0.4000E+05},
-    {-0.2667E+05, -0.0000E+00, 0.4000E+05, 0.2667E+05, 0.0000E+00, 0.4000E+05},
-    {-0.0000E+00, -0.6667E+06, -0.0000E+00, 0.0000E+00, 0.6667E+06, -0.0000E+00},
-    {-0.4000E+05, 0.0000E+00, 0.4000E+05, 0.4000E+05, -0.0000E+00, 0.8000E+05}
-};
+//    std::initializer_list<std::initializer_list<double>> matrix_lists = {
+//    {0.2667E+05, 0.0000E+00, -0.4000E+05, -0.2667E+05, -0.0000E+00, -0.4000E+05},
+//    {0.0000E+00, 0.6667E+06, 0.0000E+00, -0.0000E+00, -0.6667E+06, 0.0000E+00},
+//    {-0.4000E+05, 0.0000E+00, 0.8000E+05, 0.4000E+05, -0.0000E+00, 0.4000E+05},
+//    {-0.2667E+05, -0.0000E+00, 0.4000E+05, 0.2667E+05, 0.0000E+00, 0.4000E+05},
+//    {-0.0000E+00, -0.6667E+06, -0.0000E+00, 0.0000E+00, 0.6667E+06, -0.0000E+00},
+//    {-0.4000E+05, 0.0000E+00, 0.4000E+05, 0.4000E+05, -0.0000E+00, 0.8000E+05}
+//};
 
-    std::cout << element.getStiffnessMatrix() << std::endl << matrix << std::endl;
+    //std::cout << element.getStiffnessMatrix() << std::endl << matrix << std::endl;
 
     //BOOST_CHECK(element.getStiffnessMatrix() == matrix);
 
@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_CASE(Mesh_tests)
 
     auto matrix = mesh.getStiffnessMatrix();
 
-    //std::cout << matrix << std::endl;
+    std::cout << matrix << std::endl;
 }
 
 BOOST_AUTO_TEST_CASE(Ptree_tests)
@@ -97,12 +97,12 @@ BOOST_AUTO_TEST_CASE(Gauss_tests)
 
     matrix.reshape(3,3);
 
-    std::cout << matrix << std::endl;
+    //std::cout << matrix << std::endl;
 
     Vector vector = {7, 8, 3};
     auto result = arma::solve(matrix, vector);
 
-    std::cout << result << std::endl;
+    //std::cout << result << std::endl;
 
     //BOOST_CHECK(result == Vector({-0.2, 4., -0.8}));
 }

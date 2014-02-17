@@ -3,7 +3,12 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/info_parser.hpp>
 
-static const std::map<Element::Type, int> ldofn;
+static const std::map<Element::Type, int> ldofn = {
+    {Element::Type::Frame, 3},
+    {Element::Type::Truss, 2},
+    {Element::Type::ContactBeam_1, 1},
+    {Element::Type::ContactBeam_2, 2}
+};
 
 Mesh::Mesh()
 {
@@ -11,21 +16,48 @@ Mesh::Mesh()
 
 Matrix Mesh::getStiffnessMatrix()
 {
+
+    /*
+     *
+     * size of stiff ness matrix = 3 * nr_nodes
+     for each element
+        for i in 0 to 2 (node's degrees of freedom
+        for j in 0 to 2
+        get node index 1 = ni_1
+        gst(ni_1*3 + i, ni_1*3 + j) = est(i, j);
+        gst(ni_2*3 + i, ni_2*3 + j) = est(i+3, j+3);
+
+
+     */
+
+
+
+
     //no const due to the map.at() ....
-    Matrix toReturn(20, 20);
-    m_dofn = m_nodes.size();
+    int ndf = 3;
+    Matrix toReturn(m_nodes.size() * ndf, m_nodes.size() * ndf, arma::fill::zeros);
 
-    for (auto& element : m_elements){
-        //no const due to taking address...
+    for (auto& element : m_elements) {
         Matrix est = element->getStiffnessMatrix();
-
-        assemble(toReturn, 1, 1, indices_1.at(element.get()), indices_2.at(element.get()), est, 3);
-        assemble(toReturn, 1, 2, indices_1.at(element.get()), indices_2.at(element.get()), est, 3);
-        assemble(toReturn, 2, 1, indices_1.at(element.get()), indices_2.at(element.get()), est, 3);
-        assemble(toReturn, 2, 2, indices_1.at(element.get()), indices_2.at(element.get()), est, 3);
-
-
+        int offset_1 = ndf * indices_1.at(element.get());
+        int offset_2 = ndf * indices_2.at(element.get());
+        for (int i=0; i<ndf; ++i) {
+            for (int j=0; j<ndf; ++j) {
+                toReturn(offset_1 + i, offset_1 + j) = est(i, j);
+                toReturn(offset_2 + i, offset_2 + j) = est(ndf + i, ndf+ j);
+            }
+        }
     }
+//    std::cout << ndf << std::endl;
+//    m_dofn = m_nodes.size();
+
+//    for (auto& element : m_elements){
+//        //no const due to taking address...
+//        Matrix est = element->getStiffnessMatrix();
+
+
+
+//    }
 
     return toReturn;
 }
@@ -60,6 +92,8 @@ void Mesh::load(const std::string &filename)
 
 void Mesh::assemble(Matrix &gst, int ii, int jj, int nodi, int nodj, const Matrix &est, int edofn) const
 {
+
+
     for (int j=0; j<edofn; ++j){
         int kj = m_dofn*(nodj)+j;
         for (int i=0; i<edofn; ++i){
