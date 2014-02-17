@@ -1,5 +1,5 @@
 #include "Element.hpp"
-#include "Matrix.hpp"
+#include "Algebra.hpp"
 #include "Node.hpp"
 #include <cmath>
 

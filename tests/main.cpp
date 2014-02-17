@@ -1,12 +1,12 @@
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_MODULE Test
 #include <boost/test/unit_test.hpp>
-#include <Matrix.hpp>
+#include <Algebra.hpp>
 #include <Node.hpp>
 #include <Element.hpp>
 #include <Mesh.hpp>
 #include <iostream>
-#include <Vector.hpp>
+
 
 BOOST_AUTO_TEST_CASE(Matrix_Tests)
 {

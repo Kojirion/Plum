@@ -14,30 +14,13 @@ Mesh::Mesh()
 {
 }
 
-Matrix Mesh::getStiffnessMatrix()
+Matrix Mesh::getStiffnessMatrix() const
 {
-
-    /*
-     *
-     * size of stiff ness matrix = 3 * nr_nodes
-     for each element
-        for i in 0 to 2 (node's degrees of freedom
-        for j in 0 to 2
-        get node index 1 = ni_1
-        gst(ni_1*3 + i, ni_1*3 + j) = est(i, j);
-        gst(ni_2*3 + i, ni_2*3 + j) = est(i+3, j+3);
-
-
-     */
-
-
-
-
     //no const due to the map.at() ....
     int ndf = 3;
     Matrix toReturn(m_nodes.size() * ndf, m_nodes.size() * ndf, arma::fill::zeros);
 
-    for (auto& element : m_elements) {
+    for (const auto& element : m_elements) {
         Matrix est = element->getStiffnessMatrix();
         int offset_1 = ndf * indices_1.at(element.get());
         int offset_2 = ndf * indices_2.at(element.get());
@@ -48,16 +31,6 @@ Matrix Mesh::getStiffnessMatrix()
             }
         }
     }
-//    std::cout << ndf << std::endl;
-//    m_dofn = m_nodes.size();
-
-//    for (auto& element : m_elements){
-//        //no const due to taking address...
-//        Matrix est = element->getStiffnessMatrix();
-
-
-
-//    }
 
     return toReturn;
 }
@@ -88,19 +61,4 @@ void Mesh::load(const std::string &filename)
 //        addElement();
 
 
-}
-
-void Mesh::assemble(Matrix &gst, int ii, int jj, int nodi, int nodj, const Matrix &est, int edofn) const
-{
-
-
-    for (int j=0; j<edofn; ++j){
-        int kj = m_dofn*(nodj)+j;
-        for (int i=0; i<edofn; ++i){
-            int ki = m_dofn * (nodi) + i;
-            int esti = edofn * (ii-1) + i;
-            int estj = edofn * (jj-1) + j;
-            gst(ki, kj) += est(esti, estj);
-        }
-    }
 }

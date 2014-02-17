@@ -4,11 +4,10 @@ set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -gdwarf-3")
 include_directories(${CMAKE_SOURCE_DIR})
 
 set(Plumpp_HDRS
-        Matrix.hpp
         Node.hpp
         Element.hpp
         Mesh.hpp
-        Vector.hpp
+        Algebra.hpp
 )
 
 set(Plumpp_SRCS

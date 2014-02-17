@@ -1,6 +1,6 @@
 #ifndef ELEMENT_HPP
 #define ELEMENT_HPP
-#include "Matrix.hpp"
+#include "Algebra.hpp"
 
 class Node;
 
