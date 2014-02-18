@@ -16,10 +16,10 @@ Element::Element(const Node &node_1, const Node &node_2, double youngsModulus, d
 
 Matrix Element::getStiffnessMatrix() const
 {
-    double x1 = node_1.x;
-    double y1 = node_1.y;
-    double x2 = node_2.x;
-    double y2 = node_2.y;
+    double x1 = node_1.position(0);
+    double y1 = node_1.position(1);
+    double x2 = node_2.position(0);
+    double y2 = node_2.position(1);
     double al = std::sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
     double c = (x2 - x1) / al;
     double s = (y2 - y1) / al;

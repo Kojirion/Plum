@@ -13,8 +13,9 @@ public:
     Mesh();
 
     Matrix getStiffnessMatrix() const;
+    Vector getLoadsVector() const;
 
-    void addNode(const Node& node);
+    void addNode(const Vector3 &position, const OptionalVector3 &fixity, const Vector3 &load);
     void addElement(unsigned int nodeIndex_1, unsigned int nodeIndex_2, Element::Type type);
 
     void load(const std::string& filename);

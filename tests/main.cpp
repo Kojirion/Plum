@@ -36,12 +36,12 @@ BOOST_AUTO_TEST_CASE(Factor)
 
 BOOST_AUTO_TEST_CASE(Element_tests)
 {
-    Node node_1{0., 0.};
-    Node node_2{0., 3.};
+//    Node node_1{0., 0.};
+//    Node node_2{0., 3.};
 
-    Element element(node_1, node_2, 2E8, 0.01, 3E-4);
+//    Element element(node_1, node_2, 2E8, 0.01, 3E-4);
 
-    Matrix matrix;
+//    Matrix matrix;
 
 //    std::initializer_list<std::initializer_list<double>> matrix_lists = {
 //    {0.2667E+05, 0.0000E+00, -0.4000E+05, -0.2667E+05, -0.0000E+00, -0.4000E+05},
@@ -63,11 +63,11 @@ BOOST_AUTO_TEST_CASE(Mesh_tests)
 {
     Mesh mesh;
 
-    mesh.addNode({0., 0.});
-    mesh.addNode({0., 3.});
-    mesh.addNode({2., 3.});
-    mesh.addNode({4., 3.});
-    mesh.addNode({4., 0.});
+    mesh.addNode({0., 0., 0.}, {0., 0., 0.}, {});
+    mesh.addNode({0., 3., 0.}, {0., 0., 0.}, {});
+    mesh.addNode({2., 3., 0.}, {0., 0., 0.}, {});
+    mesh.addNode({4., 3., 0.}, {0., 0., 0.}, {});
+    mesh.addNode({4., 0., 0.}, {0., 0., 0.}, {});
 
     mesh.addElement(0, 1, Element::Type::Frame);
     mesh.addElement(1, 2, Element::Type::Frame);
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE(Gauss_tests)
     Vector vector = {7, 8, 3};
     auto result = arma::solve(matrix, vector);
 
-    //std::cout << result << std::endl;
+    std::cout << result << std::endl;
 
     //BOOST_CHECK(result == Vector({-0.2, 4., -0.8}));
 }

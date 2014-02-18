@@ -18,12 +18,13 @@ public:
 
     Matrix getStiffnessMatrix() const;
 
+    const Node& node_1;
+    const Node& node_2;
+
 
 
 private:
-    Type type;
-    const Node& node_1;
-    const Node& node_2;
+    Type type;   
     double youngsModulus;
     double area;
     double area_2;

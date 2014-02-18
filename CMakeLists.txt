@@ -21,6 +21,7 @@ add_library(core ${Plumpp_HDRS} ${Plumpp_SRCS})
 add_executable(${PROJECT_NAME} main.cpp)
 target_link_libraries(${PROJECT_NAME} core)
 target_link_libraries(${PROJECT_NAME} /usr/local/lib/libboost_program_options.so)
+target_link_libraries(${PROJECT_NAME} /usr/lib/libarmadillo.so)
 
 set(test_SRCS
     tests/main.cpp
