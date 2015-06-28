@@ -1,33 +1,36 @@
 project(Plumpp)
 cmake_minimum_required(VERSION 2.8)
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -gdwarf-3")
+
+find_package(Boost COMPONENTS program_options unit_test_framework REQUIRED)
+find_package(Armadillo REQUIRED)
+
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 include_directories(${CMAKE_SOURCE_DIR})
+include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${ARMADILLO_INCLUDE_DIRS})
 
-set(Plumpp_HDRS
-        Node.hpp
-        Element.hpp
-        Mesh.hpp
-        Algebra.hpp
+set(HDRS
+    Node.hpp
+    Element.hpp
+    Mesh.hpp
+    Algebra.hpp
 )
 
-set(Plumpp_SRCS
-        Node.cpp
-        Element.cpp
-        Mesh.cpp
+set(SRCS
+    Node.cpp
+    Element.cpp
+    Mesh.cpp
 )
 
-add_library(core ${Plumpp_HDRS} ${Plumpp_SRCS})
+add_library(core ${HDRS} ${SRCS})
 
 add_executable(${PROJECT_NAME} main.cpp)
-target_link_libraries(${PROJECT_NAME} core)
-target_link_libraries(${PROJECT_NAME} /usr/local/lib/libboost_program_options.so)
-target_link_libraries(${PROJECT_NAME} /usr/lib/libarmadillo.so)
+target_link_libraries(${PROJECT_NAME} core ${ARMADILLO_LIBRARIES} ${Boost_LIBRARIES})
 
 set(test_SRCS
     tests/main.cpp
 )
-add_executable(test ${test_SRCS})
-#target_link_libraries(test ${BOOST_UNIT_TEST_FRAMEWORK_LIBRARIES})
-target_link_libraries(test core)
-target_link_libraries(test /usr/local/lib/libboost_unit_test_framework.so)
-target_link_libraries(test /usr/lib/libarmadillo.so)
+
+add_executable(unit_tests ${test_SRCS})
+target_link_libraries(unit_tests core ${ARMADILLO_LIBRARIES} ${Boost_LIBRARIES})
